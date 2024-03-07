@@ -1,12 +1,17 @@
+'use client'
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Separator } from "@/components/ui/separator"
+import { useForm } from "react-hook-form"
 
 export function Auth() {
+  const form = useForm()
+
+  const handleSubmit = form.handleSubmit(data => console.log(data))
   return (
-    <div className="grid min-h-screen place-items-center gap-6 px-6">
+    <form className="grid min-h-screen place-items-center gap-6 px-6" onSubmit={handleSubmit}>
       <div className="space-y-4">
         <div className="space-y-2 text-center">
           <div className="mx-auto h-12" />
@@ -18,13 +23,13 @@ export function Auth() {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" placeholder="m@example.com" required type="email" />
+            <Input id="email" placeholder="m@example.com" required type="email" {...form.register('email')} />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" required type="password" />
+            <Input id="password" required type="password" {...form.register('password')} />
           </div>
-          <Button className="w-full">Login</Button>
+          <Button className="w-full"  type="submit">Login</Button>
           <Link className="inline-block w-full text-center text-sm underline" href="#">
             Forgot your password?
           </Link>
@@ -33,7 +38,7 @@ export function Auth() {
         <div className="space-y-4">
           <Button className="w-full" variant="outline">Login with Google</Button>
           <Button className="w-full" variant="outline">
-            Login with Facebook
+            Login with Meta
           </Button>
           <Button className="w-full" variant="outline">
             Login with Apple
@@ -43,7 +48,7 @@ export function Auth() {
           </Button>
         </div>
       </div>
-    </div>
+    </form>
   )
 }
 
